@@ -1,0 +1,59 @@
+ public class Heap {
+        public static void sort(IComparable[] pq)
+        {
+            int N = pq.Length;
+            for (int k = N / 2; k >= 1; k--)
+                sink(pq, k, N);
+            while (N > 1)
+            {
+                exch(pq, 1, N--);
+                sink(pq, 1, N);
+                show(pq);
+            }
+
+        }
+
+        private static void sink(IComparable[] pq, int k, int N)
+        {
+            while (2 * k <= N)
+            {
+                int j = 2 * k;
+                if (j < N && less(pq, j, j + 1)) j++;
+                if (!less(pq, k, j)) break;
+                exch(pq, k, j);
+                k = j;
+        }
+        }
+        private static bool less(IComparable[] pq, int i, int j)
+        {
+            return pq[i - 1].CompareTo(pq[j - 1]) < 0;
+        }
+        private static bool less(IComparable v, IComparable w)
+        {
+            return (v.CompareTo(w) < 0);
+        }
+        private static void exch(Object[] pq, int i, int j)
+        {
+            Object swap = pq[i - 1];
+            pq[i - 1] = pq[j - 1];
+            pq[j - 1] = swap;
+        }
+        private static void show(IComparable[] a)
+        {
+            for (int i = 0; i < a.Length; i++)
+            {
+                Console.Write(a[i]+" ");
+                
+            }
+            Console.WriteLine();
+        }
+
+        public static void Main(string[] args)
+        {
+            string[] a = Console.ReadLine().Split();
+            Heap.sort(a);
+            //show(a);
+
+            Console.ReadKey();
+        }
+    }
